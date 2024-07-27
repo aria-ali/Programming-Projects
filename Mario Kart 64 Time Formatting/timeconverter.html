@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Format Converter</title>
+</head>
+<body>
+    <h1>Time Format Converter</h1>
+    <form id="timeConverterForm">
+        <label for="trackAbbreviation">Track Abbreviation:</label>
+        <input type="text" id="trackAbbreviation" required><br><br>
+
+        <label for="raceType">Race Type (flap or 3lap):</label>
+        <input type="text" id="raceType" required><br><br>
+
+        <label for="timeInput">Time (HHMMSS):</label>
+        <input type="text" id="timeInput" required><br><br>
+
+        <input type="button" value="Convert" onclick="convertTime()">
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+   function convertTime() {
+    // Get user input values
+    var trackAbbreviation = document.getElementById("trackAbbreviation").value;
+    var raceType = document.getElementById("raceType").value;
+    var timeInput = document.getElementById("timeInput").value;
+    
+    // Map track abbreviations to full track names
+    var trackMappings = {
+        "lr": "Luigi Raceway",
+        "mmf": "Moo Moo Farm",
+        "ktb": "Koopa Troopa Beach",
+        "kd": "Kalimari Desert",
+        "tt": "Toad's Turnpike",
+        "fs": "Frappe Snowland",
+        "cm": "Choco Mountain",
+        "mr": "Mario Raceway",
+        "ws": "Wario Stadium",
+        "sl": "Sherbet Land",
+        "rry": "Royal Raceway",
+        "bc": "Bowser's Castle",
+        "dkjp": "D.K.'s Jungle Parkway",
+        "yv": "Yoshi Valley",
+        "bb": "Banshee Boardwalk",
+        "rrd": "Rainbow Road"
+    };
+    
+    // Check if the track abbreviation exists in the mappings
+    if (trackAbbreviation in trackMappings) {
+        trackAbbreviation = trackMappings[trackAbbreviation];
+    } else {
+        // Handle cases where the abbreviation is not found
+        trackAbbreviation = "Unknown Track";
+    }
+    
+    // Separate the time into hours, minutes, and seconds
+    var hours = timeInput.substring(0, 2);
+    var minutes = timeInput.substring(2, 4);
+    var seconds = timeInput.substring(4, 6);
+    
+    // Format the time as "HH'MM\"SS"
+    var formattedTime = hours + "'" + minutes + "\"" + seconds;
+    
+    // Combine track, race type, and formatted time
+    var outputText = trackAbbreviation + " " + raceType + " - " + formattedTime + " (NTSC)" +
+                     "<br>Player - Aria" +
+                     "<br>Capture Card - Vivianas Dazzle dvc100";
+                     
+    // Update the output <div> with the formatted time
+    document.getElementById("output").innerHTML = outputText;
+}
+
+
+    </script>
+</body>
+</html>
